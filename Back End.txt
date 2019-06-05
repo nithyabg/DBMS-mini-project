@@ -1,0 +1,427 @@
+
+-- Database: `adoption_centre`
+
+
+
+-- Table structure for table `adaptability`
+--
+
+CREATE TABLE IF NOT EXISTS `adaptability` (
+  `id_no` int(5) NOT NULL DEFAULT '0',
+  `adaptability` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_no`,`adaptability`)
+);
+
+--
+-- Dumping data for table `adaptability`
+--
+
+INSERT INTO `adaptability` (`id_no`, `adaptability`) VALUES
+(141, 'cold'),
+(141, 'Moderate'),
+(142, 'Moderate'),
+(143, 'Moderate'),
+(144, 'Moderate'),
+(145, 'Moderate'),
+(146, 'Cold'),
+(147, 'Moderate'),
+(148, 'Moderate'),
+(149, 'High Temperature'),
+(150, 'Moderate'),
+(151, 'High Temperature'),
+(151, 'Moderate'),
+(152, 'Moderate'),
+(153, 'Moderate'),
+(154, 'Cold'),
+(154, 'Moderate'),
+(155, 'Moderate'),
+(156, 'Moderate'),
+(157, 'Moderate'),
+(158, 'Moderate'),
+(159, 'Moderate'),
+(160, 'Moderate'),
+(161, 'Moderate'),
+(162, 'Moderate'),
+(163, 'Moderate'),
+(164, 'Moderate'),
+(165, 'Moderate'),
+(166, 'Moderate'),
+(167, 'Moderate'),
+(168, 'Cold'),
+(168, 'Moderate'),
+(169, 'cold'),
+(170, 'Moderate');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adoption`
+--
+
+CREATE TABLE IF NOT EXISTS `adoption` (
+  `cat_id` int(5) NOT NULL DEFAULT '0',
+  `adoption_date` date NOT NULL DEFAULT '0000-00-00',
+  PRIMARY KEY (`cat_id`,`adoption_date`)
+) ;
+
+--
+-- Triggers `adoption`
+--
+DROP TRIGGER IF EXISTS `adoption_centre`.`adoption_date`;
+DELIMITER //
+CREATE TRIGGER `adoption_centre`.`adoption_date` BEFORE INSERT ON `adoption_centre`.`adoption`
+ FOR EACH ROW set new.adoption_date=NOW()
+//
+DELIMITER ;
+
+--
+-- Dumping data for table `adoption`
+--
+
+INSERT INTO `adoption` (`cat_id`, `adoption_date`) VALUES
+(1001, '2017-07-14'),
+(1002, '2017-08-10'),
+(1003, '2018-11-26'),
+(1004, '2018-11-23'),
+(1004, '2018-11-26'),
+(1005, '2018-01-17'),
+(1006, '2018-04-14'),
+(1007, '2018-11-07'),
+(1009, '2018-05-19'),
+(1010, '2018-07-20'),
+(1011, '2018-06-28'),
+(1012, '2018-01-01'),
+(1016, '2018-11-12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `animals`
+--
+
+CREATE TABLE IF NOT EXISTS `animals` (
+  `id_no` int(5) NOT NULL,
+  `branch_id` int(5) DEFAULT NULL,
+  `bcode` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id_no`),
+  KEY `branch_id` (`branch_id`),
+  KEY `bcode` (`bcode`)
+) ;
+
+--
+-- Dumping data for table `animals`
+--
+
+INSERT INTO `animals` (`id_no`, `branch_id`, `bcode`) VALUES
+(141, 101, 'A1'),
+(142, 101, 'A1'),
+(143, 101, 'A1'),
+(144, 101, 'A2'),
+(145, 101, 'B1'),
+(146, 101, 'D1'),
+(147, 101, 'E1'),
+(148, 101, 'F2'),
+(149, 101, 'H2'),
+(150, 102, 'A1'),
+(151, 102, 'A2'),
+(152, 103, 'C1'),
+(153, 103, 'G1'),
+(154, 103, 'G1'),
+(155, 103, 'J1'),
+(156, 104, 'B1'),
+(157, 104, 'B2'),
+(158, 104, 'C3'),
+(159, 104, 'G1'),
+(160, 104, 'H1'),
+(161, 105, 'D2'),
+(162, 105, 'B1'),
+(163, 105, 'A1'),
+(164, 105, 'I2'),
+(165, 106, 'J2'),
+(166, 106, 'I1'),
+(167, 107, 'C2'),
+(168, 108, 'D1'),
+(169, 109, 'A1'),
+(170, 110, 'F1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `branch`
+--
+
+CREATE TABLE IF NOT EXISTS `branch` (
+  `branch_id` int(5) NOT NULL,
+  `branch_location` varchar(20) DEFAULT NULL,
+  `mgr_id` int(5) DEFAULT NULL,
+  `mgr_startdate` date DEFAULT NULL,
+  `contact_no` bigint(11) DEFAULT NULL,
+  PRIMARY KEY (`branch_id`),
+  KEY `mgr_id` (`mgr_id`)
+) ;
+
+--
+-- Dumping data for table `branch`
+--
+
+INSERT INTO `branch` (`branch_id`, `branch_location`, `mgr_id`, `mgr_startdate`, `contact_no`) VALUES
+(101, 'Jayanagar Bengaluru', 7, '2015-01-01', 9902830948),
+(102, 'Shivmogga', 14, '2016-07-01', 7019724967),
+(103, 'Udupi', 2, '2018-02-01', 9845328435),
+(104, 'Ananthapura', 12, '2017-06-01', 9066965867),
+(105, 'Tumkur', 15, '2017-09-01', 9902842899),
+(106, 'Shirsi', 13, '2016-03-01', 7892841180),
+(107, 'Kanakpura', 10, '2018-05-01', 8026531117),
+(108, 'Uttaralli Bengaluru', 9, '2016-04-01', 8025731717),
+(109, 'Mangalore', 4, '2018-01-01', 8553393363),
+(110, 'Chikmangluru', 5, '2017-12-01', 8026484762);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `breed`
+--
+
+CREATE TABLE IF NOT EXISTS `breed` (
+  `species_no` int(5) DEFAULT NULL,
+  `breed_code` varchar(5) NOT NULL,
+  `bname` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`breed_code`),
+  KEY `species_no` (`species_no`)
+) ;
+
+--
+-- Dumping data for table `breed`
+--
+
+INSERT INTO `breed` (`species_no`, `breed_code`, `bname`) VALUES
+(11, 'A1', 'Spotted Cat'),
+(11, 'A2', 'Domestic short-haire'),
+(12, 'B1', 'Indian paraiah dog'),
+(12, 'B2', 'Pug'),
+(13, 'C1', 'Ducks'),
+(13, 'C2', 'Parrots'),
+(13, 'C3', 'Pigeons'),
+(14, 'D1', 'Rohu'),
+(14, 'D2', 'Orangefin labeo'),
+(15, 'E1', 'Deccani Sheep'),
+(16, 'F1', 'Roborovski Hamsters'),
+(16, 'F2', 'Djungarian Hamsters'),
+(17, 'G1', 'Alaskan Rabbit'),
+(18, 'H1', 'Red Sindhi'),
+(18, 'H2', 'Domestic native cow'),
+(19, 'I1', 'Marwari Horse'),
+(19, 'I2', 'Kathyawari Horse'),
+(20, 'J1', 'Audithia Turtle'),
+(20, 'J2', 'Caspian pond Turtle');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `catalog`
+--
+
+CREATE TABLE IF NOT EXISTS `catalog` (
+  `cat_id` int(5) NOT NULL,
+  `id_no` int(5) DEFAULT NULL,
+  `vaccinated` varchar(20) DEFAULT NULL,
+  `location_found` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`cat_id`),
+  KEY `id_no` (`id_no`)
+);
+
+--
+-- Dumping data for table `catalog`
+--
+
+INSERT INTO `catalog` (`cat_id`, `id_no`, `vaccinated`, `location_found`) VALUES
+(1011, 169, 'yes', 'Jayanagar'),
+(1001, 141, 'yes', 'Centre'),
+(1002, 142, 'yes', 'JP Nagar'),
+(1003, 145, 'No', 'Jayanagar'),
+(1004, 150, 'No', 'Tumkur'),
+(1005, 154, 'Yes', 'chikmangaluru'),
+(1006, 159, 'Yes', 'Kanakpura'),
+(1007, 163, 'Yes', 'Shivmogga'),
+(1008, 165, 'No', 'Shirsi'),
+(1009, 167, 'yes', 'Ananthapura'),
+(1010, 168, 'yes', 'Uttarahalli'),
+(1012, 170, 'yes', 'Jayanagar'),
+(1013, 143, 'No', 'Jayanagar'),
+(1014, 144, 'No', 'Jayanagar'),
+(1015, 146, 'No', 'Jayanagar'),
+(1016, 147, 'Yes', 'Jayanagar'),
+(1017, 148, 'No', 'Jayanagar'),
+(1018, 149, 'No', 'Jayanagar'),
+(1019, 151, 'No', 'Uttarahalli'),
+(1020, 152, 'No', 'Uttarahalli'),
+(1021, 153, 'No', 'Uttarahalli'),
+(1022, 155, 'No', 'Shirsi'),
+(1023, 156, 'No', 'Uttarahalli'),
+(1024, 157, 'No', 'Uttarahalli'),
+(1025, 158, 'No', 'Kanakpura'),
+(1026, 160, 'No', 'Mangalore'),
+(1027, 161, 'No', 'Centre'),
+(1028, 162, 'No', 'Shivmogga'),
+(1029, 164, 'No', 'Tumkur'),
+(1030, 166, 'No', 'Kundapura');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee`
+--
+
+CREATE TABLE IF NOT EXISTS `employee` (
+  `emp_id` int(5) NOT NULL,
+  `fname` varchar(20) DEFAULT NULL,
+  `lname` varchar(20) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `address` varchar(20) DEFAULT NULL,
+  `salary` int(8) DEFAULT NULL,
+  `department` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`emp_id`)
+);
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`emp_id`, `fname`, `lname`, `dob`, `address`, `salary`, `department`) VALUES
+(1, 'Abhijna', 'bhat', '1995-02-28', 'Bengaluru', 30000, 'Care Taker'),
+(2, 'Ajay', 'bhat', '1994-01-05', 'Uppunda', 50000, 'General Manager'),
+(3, 'Bhumika', 'Hegde', '1995-02-23', 'Sagara', 45000, 'Duty Doctor'),
+(4, 'Ritesh', 'Murali', '1996-10-20', 'Mangalore', 30000, 'Care Taker'),
+(5, 'Aditya', 'Prasad', '1994-12-08', 'Chikmangluru', 30000, 'Care Taker'),
+(6, 'Malini', 'GP', '1980-04-14', 'Chitradurga', 45000, 'Duty Doctor'),
+(7, 'Navya', 'BG', '1995-01-29', 'Bengaluru', 60000, 'Manager'),
+(8, 'Nikhil', 'BC', '1994-03-07', 'Mandya', 45000, 'Duty Doctor'),
+(9, 'Pooja', 'Prasad', '1997-01-12', 'Bengaluru', 40000, 'Care Taker'),
+(10, 'Priya', 'Ranjani', '1997-01-18', 'Bengaluru', 40000, 'Care Taker'),
+(11, 'Prasanna', 'BV', '1975-08-12', 'Shivmogga', 70000, 'CEO'),
+(12, 'Ramya', 'Nagesh', '1997-05-28', 'Ananthapura', 40000, 'Care Taker'),
+(13, 'Karishma', 'Hegde', '1996-05-18', 'Shirsi', 40000, 'Care Taker'),
+(14, 'Nithya', 'BG', '1996-07-14', 'Shivmogga', 40000, 'Care Taker'),
+(15, 'Abhiram', 'vasist', '1996-01-01', 'Tumkur', 40000, 'Care Taker');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login`
+--
+
+CREATE TABLE IF NOT EXISTS `login` (
+  `user` varchar(20) NOT NULL,
+  `pass` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`user`)
+);
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`user`, `pass`) VALUES
+('Guruprasanna', 'prasanna'),
+('NavyaBG', 'navyabg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `other_healthcond`
+--
+
+CREATE TABLE IF NOT EXISTS `other_healthcond` (
+  `cat_id` int(5) NOT NULL DEFAULT '0',
+  `other_healthcond` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`cat_id`,`other_healthcond`)
+);
+
+--
+-- Dumping data for table `other_healthcond`
+--
+
+INSERT INTO `other_healthcond` (`cat_id`, `other_healthcond`) VALUES
+(1001, 'None'),
+(1002, 'Anemia'),
+(1005, 'Calcium Deficiency'),
+(1006, 'BSE'),
+(1007, 'Hindlegs handicapped'),
+(1009, 'None'),
+(1010, 'None'),
+(1011, 'None'),
+(1012, 'None'),
+(1016, 'Eye infection');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `species`
+--
+
+CREATE TABLE IF NOT EXISTS `species` (
+  `species_no` int(5) NOT NULL,
+  `species_name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`species_no`)
+);
+
+--
+-- Dumping data for table `species`
+--
+
+INSERT INTO `species` (`species_no`, `species_name`) VALUES
+(11, 'Cats'),
+(12, 'Dogs'),
+(13, 'Birds'),
+(14, 'Fishes'),
+(15, 'Sheeps'),
+(16, 'Hamsters'),
+(17, 'Rabbits'),
+(18, 'Cows'),
+(19, 'Horses'),
+(20, 'Turtles');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `works_for`
+--
+
+CREATE TABLE IF NOT EXISTS `works_for` (
+  `emp_id` int(5) NOT NULL DEFAULT '0',
+  `branch_id` int(5) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`emp_id`,`branch_id`),
+  KEY `branch_id` (`branch_id`)
+);
+
+--
+-- Dumping data for table `works_for`
+--
+
+INSERT INTO `works_for` (`emp_id`, `branch_id`) VALUES
+(1, 108),
+(2, 103),
+(3, 106),
+(4, 109),
+(5, 110),
+(6, 101),
+(6, 108),
+(7, 101),
+(8, 107),
+(9, 108),
+(10, 107),
+(11, 101),
+(12, 104),
+(13, 106),
+(14, 102),
+(15, 105);
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `contact`()
+BEGIN
+select branch_location,contact_no from branch;
+END$$
+
+DELIMITER ;
